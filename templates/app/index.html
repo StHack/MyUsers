@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Home - MyUsers{% endblock %}
+
+{% block profil %}
+	{% if user.is_authenticated %}
+		<li><a href="{% url "user" user.pk %}" class="">Mon Profil</a></li>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+
+		<h2>Salut {{ user.username }}, tu as été poké {{ user.nbPoke }} fois.</h2>
+		<h3>Voici la liste des utilisateurs. N'hésite pas à les poker toi aussi !</h3>
+		<ul>
+			{% for u in users %}
+				{% if u.username != user.username %}
+				<li>
+					<h4>
+						<a href="{% url "user" u.pk %}">{{ u.username }}</a> a été poké {{ u.nbPoke }} fois !
+						<form method="link" action="{% url "poke" u.username %}">
+							<button type="submit" class="btn btn-primary btn-mini">POKE !</button>
+						</form>
+					</h4>
+				</li>
+				{% endif %}
+			{% empty %}
+				<h4>Pas encore d'utilisateur dans cette application</h4>
+			{% endfor %}
+		</ul>
+		<br/>
+		{% if megalo %}<h4>Se poker soit-même... Quelle tristesse ! :-(</h4>{% endif %}
+	{% else %}
+		<h2>Bienvenue sur MyUsers,</h2>
+		<p>
+			Pour pouvoir poker vos amis, veuillez vous <a href="{% url 'connexion' %}">connecter</a> !<br />
+			Si vous n'avez pas de compte, <a href="{% url 'suscribe' %}">inscrivez-vous</a> !
+		</p>
+	{% endif %}
+{% endblock %}
+
+<a href="{% url "test" %}">test</a>

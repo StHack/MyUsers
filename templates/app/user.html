@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username }} - MyUsers{% endblock %}
+
+{% block profil %}
+	<li><a href="{% url "user" user.pk %}" class="">Mon Profil</a></li>
+{% endblock %}
+
+{% block content %}
+	<h2>{{ u.username }}</h2>
+	<h3>Nom : {{ u.last_name }}</h3>
+	<h3>Prénom : {{ u.first_name }}</h3>
+	<h3>Poké : {{ u.nbPoke }} fois</h3>
+	<h3>Dernière connexion : {{ u.last_login }}</h3>
+
+{% endblock %}
